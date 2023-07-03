@@ -1,0 +1,72 @@
+abstract public class Metal  {
+    abstract int getEndurance();//Создал абстрактный геттер прочности
+
+}
+
+
+public class Copper extends Metal{//Унаследовал класс от Metal
+    @Override
+    int getEndurance() {
+        return 20;// Вернул значение прочности для меди
+    }
+}
+
+
+public class Iron extends Metal { //Унаследовал класс от Metal
+    @Override
+    int getEndurance() {
+        return 30; // Вернул значение прочности для железа
+    }
+}
+
+
+public class Steel extends Metal { //Унаследовал класс от Metal
+    @Override
+    int getEndurance() {
+        return 50; // Вернул значение прочности для стали
+    }
+}
+
+
+public class Plastic {
+}
+
+
+
+public class Sword <T extends Metal> { //Т унаследовал от Metal, чтобы использовались в классе только металлы
+    T material;//
+    public Sword(T material) {
+        this.material = material;
+    }
+    public boolean CheckEndurance() {
+        if (material.getEndurance() > 49) return true;
+        else return false;
+    }
+}
+
+
+
+
+public class Test {
+    public static void main(String[] args) {
+        Steel steel = new Steel();
+        Plastic plastic = new Plastic();
+        Sword<Metal> sword = new Sword<>(steel);
+      if (sword.CheckEndurance() == true){
+          System.out.println("Меч прошел проверку прочности!");
+      }
+      else {
+          System.out.println("Меч не прошел проверку прочности!");
+      }//создал в том случае если код нужно усложнить и появяться другие металлы
+    }
+
+}
+
+
+
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+
