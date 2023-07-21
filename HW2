@@ -121,4 +121,6 @@ public class MyLinkedList<E> {
         linkedList.get(2);
         linkedList.removeObj(8);
         linkedList.get(3);
+        linkedList.remove(0);
+        linkedList.get(0);
     }
