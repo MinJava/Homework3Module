@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class MyLinkedList<E> {
 
     private class Node {
@@ -47,7 +45,7 @@ public class MyLinkedList<E> {
         return -1;
     }
     public boolean add(E element) {
-         if (size == 0) {
+        if (size == 0) {
             head = new Node(element);
             size++;
         }
@@ -73,6 +71,7 @@ public class MyLinkedList<E> {
             Node node = getNode(index - 1);
             node.next = new Node(element, node.next);
             System.out.println("Добавлен элемент " + element + " с индексом " + index  );
+            size++;
         }
     }
     public E remove(int index) {
@@ -87,20 +86,19 @@ public class MyLinkedList<E> {
         } else {
             Node curNode = getNode(index-1);
             node = curNode.next;
-            curNode.next =node.next.next;
+            curNode.next =node.next;
         }
         System.out.println("Удален элемент с индексом " + index);
         size--;
         return node.element;
 
     }
-    public boolean remove(Object obj) {
+    public boolean removeObj(Object obj) {
         int index = indexOf(obj);
         if (index != -1) {
             remove(index);
             System.out.println("Удаление по элементу");
             return true;
-
         }
         else return false;
     }
@@ -108,8 +106,6 @@ public class MyLinkedList<E> {
 
 }
 
-
-public class Main {
     public static void main(String[] args) {
         MyLinkedList linkedList =  new MyLinkedList();
         linkedList.add(32);
@@ -119,11 +115,10 @@ public class Main {
         linkedList.add(90);
         linkedList.add(43);
         linkedList.add(2, 11);
-        linkedList.get(1);
         linkedList.indexOf(1);
         linkedList.remove(3);
         linkedList.get(4);
-        linkedList.get(6);
+        linkedList.get(2);
+        linkedList.removeObj(8);
+        linkedList.get(3);
     }
-}
-
