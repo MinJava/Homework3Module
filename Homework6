@@ -2,17 +2,20 @@ public class Queue {
     int size;
     int items[];
     int front, rear;
+
     Queue() {
         front = -1;
         rear = -1;
     }
+
     public Queue(int size) {
         this.size = size;
         items = new int[this.size];
         front = -1;
         rear = -1;
     }
-    public static void quickSort(int[] source, int leftBorder, int rightBorder){
+
+    public static void quickSort(int[] source, int leftBorder, int rightBorder) {
         int leftmarker = leftBorder;
         int rightmarker = rightBorder;
         int pivot = source[(leftmarker + rightmarker) / 2];
@@ -43,12 +46,18 @@ public class Queue {
         }
     }
 
-        private boolean isFull() {
-        if (front == 0 && rear == size - 1) {
+    private boolean isFull() {
+        if (rear == this.size - 1) {
+            int[] Items = (int[]) new int[size*2];
+            for (int i = 0; i < size; i++) {
+                Items[i] = items[i];
+            }
+            items = Items;
             return true;
         }
         return false;
     }
+
     private boolean isEmpty() {
         if (front == -1) {
             return true;
@@ -58,7 +67,6 @@ public class Queue {
 
     public void enQueue(int element) {
         if (isFull()) {
-            System.out.println("Очередь заполнена");
         }
         if (front == -1) {
             front = 0;
@@ -67,6 +75,7 @@ public class Queue {
         items[rear] = element;
         quickSort(items, front, rear);
         System.out.println("Добавлен элемент " + element);
+
     }
 
     int deQueue() {
@@ -75,7 +84,7 @@ public class Queue {
             System.out.println("Очередь пустая!");
             return -1;
         }
-         element = items[front];
+        element = items[front];
         if (front >= rear) {
             front = -1;
             rear = -1;
@@ -94,20 +103,16 @@ public class Queue {
         } else {
             System.out.println("\nИндекс FRONT " + front);
             System.out.println("Элементы -> ");
-            for (i = front; i <= rear ; i++) {
+            for (i = front; i <= rear; i++) {
                 System.out.print(items[i] + " ");
             }
             System.out.println("\nИндекс REAR " + rear);
 
         }
-    }public  static void main(String[] args) {
-
     }
 }
 
-
-public class Main {
-    public static void main(String[] args) {
+public static void main(String[] args) {
         Queue queue = new Queue(5);
         queue.deQueue();
         queue.enQueue(4);
@@ -117,7 +122,7 @@ public class Main {
         queue.enQueue(9);
         queue.deQueue();
         queue.enQueue(190);
+        queue.enQueue(25);
+        queue.enQueue(108);
         queue.display();
-
     }
-}
