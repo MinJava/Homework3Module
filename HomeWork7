@@ -1,0 +1,53 @@
+public class Phone implements Comparable<Phone> {
+    String name;
+    String modelName;
+    int price;
+
+    public Phone(String name, String modelName, int price) {
+        this.name = name;
+        this.modelName = modelName;
+        this.price = price;
+    }
+    @Override
+    public String toString() {
+        return "phone: " + modelName + " price: " + price;
+    }
+
+    @Override
+    public int compareTo(Phone o) {
+        return this.price - o.price;
+    }
+}
+
+
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Phone> phoneArrayList = new ArrayList<>();
+        phoneArrayList.add(new Phone("Apple", "IPhone 14", 340 ));
+        phoneArrayList.add(new Phone("Samsung", "Galaxy A 33", 130 ));
+        phoneArrayList.add(new Phone("Xiaomi", "Redmi Note 12", 40 ));
+        phoneArrayList.add(new Phone("Huawei", "P60 Pro", 280 ));
+        phoneArrayList.add(new Phone("Samsung", "Galaxy S23", 296 ));
+        phoneArrayList.add(new Phone("Nokia", "Nokia C20", 37 ));
+        phoneArrayList.add(new Phone("Apple", "IPhone 10", 180 ));
+        phoneArrayList.add(new Phone("Apple", "IPhone 11", 260 ));
+        phoneArrayList.add(new Phone("Samsung", "Galaxy A23s 5G", 70 ));
+        phoneArrayList.add(new Phone("Apple", "IPhone 12", 319 ));
+
+
+        ArrayList<Phone> result =  phoneArrayList.stream()
+                .filter(o -> o.name == "Apple")
+                .collect(() -> new ArrayList<Phone>(),
+                        (list, item) -> list.add(item),
+                        (list1, list2) -> list1.addAll(list2));
+
+        phoneArrayList.stream().sorted().forEach(System.out::println);
+
+        System.out.println(result);
+
+    }
+}
