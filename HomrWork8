@@ -1,0 +1,92 @@
+import java.util.Optional;
+import java.util.Arrays;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        Address address1 = new Address("Санкт-Петербург", "Центральный");
+        Optional<Address> a1 = Optional.ofNullable(address1);
+        Address address2 = new Address("Омск", "Ленинский");
+        Optional<Address> a2 = Optional.ofNullable(address2);
+        Address address3 = new Address("Краснодар", "Восточный");
+        Optional<Address> a3 = Optional.ofNullable(address3);
+        Address address4 = new Address("Екатеринбург", "Октябрьский");
+        Optional<Address> a4 = Optional.ofNullable(address4);
+        Student student1 = new Student("Александр", a1);
+        Student student2 = new Student("Евгений", a3);
+        Student student3 = new Student("Анастасия", a2);
+        Student student4 = new Student("Криситина", a4);
+        Student student5 = new Student("Константин");
+
+        printStudentInfo(student1);
+        printStudentInfo(student2);
+        printStudentInfo(student3);
+        printStudentInfo(student4);
+        printStudentInfo(student5);
+
+        SentenceBuilder();
+    }
+    static void SentenceBuilder() {
+        List<String> wordList = Arrays.asList("предложение", "Совсем", "не", "связанное", "с", "путешествием");
+
+        String sentence = wordList.stream()
+                .reduce((word1, word2) -> word1 + " " + word2)
+                .orElse("");
+
+        System.out.println("Список слов: " + wordList);
+        System.out.println("Полученное предложение: " + sentence);
+    }
+
+
+
+    static void printStudentInfo(Student student) {
+        student.getAddress().ifPresentOrElse(o -> System.out.println(student.getName() + " " +o.getCity() + " " + o.getRegion()),
+                        () -> System.out.println(student.getName()));
+    }
+}
+
+
+public class Address {
+    private String city;
+    private String region;
+
+    public Address(String city, String region) {
+        this.city = city;
+        this.region = region;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+}
+
+import java.util.Optional;
+
+public class Student {
+    private String name;
+    private Optional<Address> address;
+
+    public Student(String name, Optional<Address> address) {
+        this.name = name;
+        this.address = address;
+    }
+
+    public Student(String name) {
+        this.name = name;
+        this.address = Optional.empty();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Optional<Address> getAddress() {
+        return address;
+    }
+}
+
